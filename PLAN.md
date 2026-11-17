@@ -13,7 +13,7 @@ versión 1.1.0 publicada en GitHub y actualización desde 1.0.0 verificada.**
 |---|---|
 | Nombre visible | **Televisión del Perú** |
 | Package / applicationId | `pe.televisiondelperu.app` |
-| Versión | `1.1.0` (`versionCode 2`) |
+| Versión | `1.2.0` (`versionCode 3`) |
 | Distribución | **APK directo** (sin Play Store por ahora) |
 | SDK | `minSdk 24`, `compileSdk 36`, `targetSdk 36` |
 | Kotlin / AGP / Gradle | `2.4.21` / `8.13.2` / `8.14.3` |
@@ -39,8 +39,8 @@ tiene tilde.
 | **F2** Catálogo, lista y pantalla | ✅ hecho | 20 canales, monogramas, colores día/noche, video 16:9, botón grande. |
 | **F3** Reproducción | ✅ hecho | ExoPlayer HLS en el servicio, cambio de canal, detener, estados. |
 | **F4** Servicio + reanudar en vivo | 🟢 probado en emulador | Reintentos, URLs alternativas, `onPlaybackResumption`, `MediaButtonReceiver`, pausa al salir y vigilante de conexiones colgadas. Falta probarlo en teléfono real. |
-| **F5** Actualizador + release + docs | 🟡 casi | `version.json`, `tools/release.ps1`, APK 1.1.0 firmado y README/PLAN listos. Falta publicar el Release v1.1.0 en GitHub. |
-| **F6** Pantalla completa horizontal | ✅ probada en emulador | Botón AMPLIAR sobre el video, giro a horizontal, SALIR y atrás vuelven a vertical sin cortar la reproducción. |
+| **F5** Actualizador + release + docs | 🟡 casi | `version.json`, `tools/release.ps1`, APK 1.2.0 firmado y README/PLAN listos. Falta publicar el Release v1.2.0 en GitHub. |
+| **F6** Pantalla completa horizontal | ✅ probada en emulador | AMPLIAR/tocar el video, giro a horizontal, SALIR solo al tocar (autooculta a los 3 s), salida con SALIR/atrás y fondo negro en el recorte de la cámara. |
 
 ---
 
@@ -138,9 +138,9 @@ CatalogRepository → assets/channels.json + caché + raw.githubusercontent/jsDe
 | Comprobación | Resultado |
 |---|---|
 | `node tools/validate.mjs` | 20/20 canales OK (manifiesto + variante + segmento) |
-| `.\build.ps1` | APK release firmado: `dist\TelevisionDelPeru-1.1.0.apk` · 1,98 MB |
+| `.\build.ps1` | APK release firmado: `dist\TelevisionDelPeru-1.2.0.apk` · 1,98 MB |
 | Firma | Keystore nueva en `keystore\televisiondelperu.jks` · SHA-256 `65DF9FBF…02BF7805` |
-| `sha256` del APK | `8ca8ac7f75b6e4ef890594920455d267a13f0c644eb83559f436b3ef062264ab` |
+| `sha256` del APK | `ede888cc093f13f66f067f6f9f13bc3fde898cbbeac33bddc731517c87dc8372` |
 | Verificación de firma | `apksigner verify` → esquema v2, 1 firmante, DN correcto |
 | Catálogo embebido | APK incluye `assets/channels.json` (12.517 bytes, misma copia) |
 | Permisos | Los 7 del documento + permiso interno de AndroidX (no visible al usuario) |
@@ -160,8 +160,12 @@ CatalogRepository → assets/channels.json + caché + raw.githubusercontent/jsDe
 | 5 toques sobre el título | ✅ muestra “Buscando actualización…” |
 | Vigilante de conexión colgada | ✅ a los 30 s fuerza un reintento si el player no responde |
 | AMPLIAR / tocar el video | ✅ pasa a 2340×1080 (horizontal), sin barras del sistema |
+| SALIR al entrar en pantalla completa | ✅ no aparece ningún botón fijo |
+| Un toque en el video | ✅ muestra SALIR |
+| Esperar 3 s sin tocar | ✅ SALIR se oculta solo |
 | SALIR en pantalla completa | ✅ vuelve a 1080×2340 (vertical) y muestra la UI normal |
 | Botón atrás en pantalla completa | ✅ sale de pantalla completa; un segundo atrás minimiza |
+| Fondo en el recorte de la cámara | ✅ negro puro (probado en modo oscuro con cutout “hole” simulado) |
 
 ### Por verificar en teléfono real
 
@@ -172,8 +176,8 @@ CatalogRepository → assets/channels.json + caché + raw.githubusercontent/jsDe
 - [ ] Reiniciar el teléfono y dar play desde la tarjeta del sistema.
 - [ ] Modo avión durante la reproducción → “Sin conexión. Reintentando…” y recuperación.
 - [ ] DETENER corta y no deja nada sonando.
-- [ ] Al pie se ve `v1.1.0 · catálogo 1`.
-- [ ] 5 toques sobre el título → “Ya tienes la última versión (v1.1.0)”.
+- [ ] Al pie se ve `v1.2.0 · catálogo 1`.
+- [ ] 5 toques sobre el título → “Ya tienes la última versión (v1.2.0)”.
 - [ ] Pantalla completa, giro a horizontal, SALIR y atrás.
 - [ ] Probar en Xiaomi/Redmi y Samsung el ahorro de batería.
 
@@ -184,15 +188,15 @@ CatalogRepository → assets/channels.json + caché + raw.githubusercontent/jsDe
 | Elemento | Valor |
 |---|---|
 | Repositorio | https://github.com/carpediego/TelevisionDelPeru |
-| Release | https://github.com/carpediego/TelevisionDelPeru/releases/tag/v1.1.0 |
-| APK del Release | `TelevisionDelPeru-1.1.0.apk` · 2.074.097 bytes |
-| `sha256` | `8ca8ac7f75b6e4ef890594920455d267a13f0c644eb83559f436b3ef062264ab` |
-| `version.json` en `main` | `versionCode 2` · `versionName 1.1.0` |
-| Actualización probada | 1.0.0 → 5 toques → descarga → instalador → 1.1.0 (emulador Android 15) |
+| Release | https://github.com/carpediego/TelevisionDelPeru/releases/tag/v1.2.0 |
+| APK del Release | `TelevisionDelPeru-1.2.0.apk` · 2.074.693 bytes |
+| `sha256` | `ede888cc093f13f66f067f6f9f13bc3fde898cbbeac33bddc731517c87dc8372` |
+| `version.json` en `main` | `versionCode 3` · `versionName 1.2.0` |
+| Actualización probada | 1.0.0 → 1.1.0 y 1.1.0 → 1.2.0 con los 5 toques (emulador Android 15) |
 
 El flujo completo quedó verificado: una app **1.0.0** ya instalada, al recibir los 5
 toques en el título, leyó `version.json`, descargó el APK del Release, comprobó el
-`sha256`, abrió el instalador del sistema y quedó en **1.1.0** sin desinstalar.
+`sha256`, abrió el instalador del sistema y quedó en **1.2.0** sin desinstalar.
 
 Para publicar una versión nueva:
 
@@ -224,6 +228,6 @@ write` ya está configurado).
 ## 9. Próximo paso
 
 1. Probar el APK en un teléfono real (lista de §6).
-2. Probar en el teléfono la actualización 1.0.0 → 1.1.0 con los 5 toques.
+2. Probar en el teléfono la actualización 1.1.0 → 1.2.0 con los 5 toques.
 3. Si algún canal falla en el teléfono, corregir su URL en `catalog/channels.json` y
    hacer commit: la app lo recoge sola, sin recompilar.

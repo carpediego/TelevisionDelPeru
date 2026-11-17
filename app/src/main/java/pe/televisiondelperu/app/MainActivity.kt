@@ -5,11 +5,17 @@ import android.content.ComponentName
 import android.content.pm.ActivityInfo
 import android.content.pm.PackageManager
 import android.content.res.Configuration
+import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
 import android.os.Build
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.os.SystemClock
+import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
+import android.view.WindowManager
 import android.widget.Button
 import android.widget.LinearLayout
 import android.widget.TextView
@@ -72,6 +78,12 @@ class MainActivity : AppCompatActivity() {
 
     private var isFullscreen = false
     private var normalVideoHeight = 0
+
+    /** Oculta el botón SALIR solo si el usuario no vuelve a tocar el video. */
+    private val uiHandler = Handler(Looper.getMainLooper())
+    private val hideFullscreenExit = Runnable {
+        btnExitFullscreen.visibility = View.GONE
+    }
 
     private var controller: MediaController? = null
     private var controllerFuture: ListenableFuture<MediaController>? = null
@@ -163,9 +175,27 @@ class MainActivity : AppCompatActivity() {
         btnAction.setOnClickListener { onActionClicked() }
         btnFullscreen.setOnClickListener { enterFullscreen() }
         btnExitFullscreen.setOnClickListener { exitFullscreen() }
-        // Tocar el video también lo pone en pantalla completa: es el gesto natural.
+        // Tocar el video lo pone en pantalla completa. Dentro de pantalla completa,
+        // un toque muestra u oculta el botón SALIR; no se queda fijo todo el tiempo.
+        // El PlayerView consume los toques, por eso el gesto también se escucha aquí.
+        playerView.setOnTouchListener { _, event ->
+            when (event.actionMasked) {
+                MotionEvent.ACTION_UP -> {
+                    if (isFullscreen) {
+                        toggleFullscreenExit()
+                    } else if (PlaybackStatus.current.channelId != null) {
+                        enterFullscreen()
+                    }
+                }
+            }
+            true
+        }
         videoFrame.setOnClickListener {
-            if (!isFullscreen && PlaybackStatus.current.channelId != null) enterFullscreen()
+            if (isFullscreen) {
+                toggleFullscreenExit()
+            } else if (PlaybackStatus.current.channelId != null) {
+                enterFullscreen()
+            }
         }
 
         // Actualizador: una comprobación al día, chip "Actualizar" solo si hay novedad
@@ -212,11 +242,14 @@ class MainActivity : AppCompatActivity() {
         controllerFuture?.let { MediaController.releaseFuture(it) }
         controllerFuture = null
         controller = null
+        uiHandler.removeCallbacks(hideFullscreenExit)
+        btnExitFullscreen.visibility = View.GONE
         super.onStop()
     }
 
     override fun onDestroy() {
         updater.listener = null
+        uiHandler.removeCallbacks(hideFullscreenExit)
         super.onDestroy()
     }
 
@@ -227,6 +260,9 @@ class MainActivity : AppCompatActivity() {
             WindowInsetsControllerCompat(window, window.decorView)
                 .hide(WindowInsetsCompat.Type.systemBars())
             rootView.setPadding(0, 0, 0, 0)
+            rootView.setBackgroundColor(Color.BLACK)
+            window.setBackgroundDrawable(ColorDrawable(Color.BLACK))
+            extendIntoDisplayCutout(true)
         }
     }
 
@@ -535,6 +571,15 @@ class MainActivity : AppCompatActivity() {
                 WindowInsetsControllerCompat.BEHAVIOR_SHOW_TRANSIENT_BARS_BY_SWIPE
         }
 
+        // Todo negro también detrás del recorte de la cámara. En un AMOLED una franja
+        // gris se nota muchísimo; el color de fondo normal no sirve aquí.
+        rootView.setBackgroundColor(Color.BLACK)
+        window.setBackgroundDrawable(ColorDrawable(Color.BLACK))
+        window.statusBarColor = Color.BLACK
+        window.navigationBarColor = Color.BLACK
+        extendIntoDisplayCutout(true)
+        playerView.setShutterBackgroundColor(Color.BLACK)
+
         rootView.setPadding(0, 0, 0, 0)
         header.visibility = View.GONE
         infoPanel.visibility = View.GONE
@@ -545,7 +590,9 @@ class MainActivity : AppCompatActivity() {
         )
 
         btnFullscreen.visibility = View.GONE
-        btnExitFullscreen.visibility = View.VISIBLE
+        // Nada de botón fijo: aparece al tocar el video y se oculta solo.
+        uiHandler.removeCallbacks(hideFullscreenExit)
+        btnExitFullscreen.visibility = View.GONE
     }
 
     /** Vuelve a la pantalla normal en vertical y restaura el tamaño 16:9 del video. */
@@ -553,9 +600,19 @@ class MainActivity : AppCompatActivity() {
         if (!isFullscreen) return
 
         isFullscreen = false
+        uiHandler.removeCallbacks(hideFullscreenExit)
+        btnExitFullscreen.visibility = View.GONE
+
         requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT
         WindowInsetsControllerCompat(window, window.decorView)
             .show(WindowInsetsCompat.Type.systemBars())
+
+        val background = ContextCompat.getColor(this, R.color.bg)
+        rootView.setBackgroundColor(background)
+        window.setBackgroundDrawable(ColorDrawable(background))
+        window.statusBarColor = background
+        window.navigationBarColor = background
+        extendIntoDisplayCutout(false)
 
         header.visibility = View.VISIBLE
         infoPanel.visibility = View.VISIBLE
@@ -565,9 +622,37 @@ class MainActivity : AppCompatActivity() {
             if (normalVideoHeight > 0) normalVideoHeight else dp(180)
         )
 
-        btnExitFullscreen.visibility = View.GONE
         ViewCompat.requestApplyInsets(rootView)
         render(PlaybackStatus.current)
+    }
+
+    /** Un toque en el video muestra SALIR; otro toque (o 3 s) lo vuelve a esconder. */
+    private fun toggleFullscreenExit() {
+        uiHandler.removeCallbacks(hideFullscreenExit)
+
+        if (btnExitFullscreen.visibility == View.VISIBLE) {
+            btnExitFullscreen.visibility = View.GONE
+        } else {
+            btnExitFullscreen.visibility = View.VISIBLE
+            uiHandler.postDelayed(hideFullscreenExit, EXIT_HIDE_DELAY_MS)
+        }
+    }
+
+    /**
+     * Permite que el video y el fondo negro lleguen hasta el borde del recorte de la
+     * cámara. Sin esto, la zona del recorte se queda con el color de la ventana y en
+     * un AMOLED se ve como una franja gris.
+     */
+    private fun extendIntoDisplayCutout(enabled: Boolean) {
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.P) return
+        val attrs = window.attributes
+        attrs.layoutInDisplayCutoutMode = when {
+            !enabled -> WindowManager.LayoutParams.LAYOUT_IN_DISPLAY_CUTOUT_MODE_DEFAULT
+            Build.VERSION.SDK_INT >= Build.VERSION_CODES.R ->
+                WindowManager.LayoutParams.LAYOUT_IN_DISPLAY_CUTOUT_MODE_ALWAYS
+            else -> WindowManager.LayoutParams.LAYOUT_IN_DISPLAY_CUTOUT_MODE_SHORT_EDGES
+        }
+        window.attributes = attrs
     }
 
     private fun renderIdle() {
@@ -620,5 +705,6 @@ class MainActivity : AppCompatActivity() {
     private companion object {
         const val TAPS_REQUIRED = 5
         const val TAPS_WINDOW_MS = 3_000L
+        const val EXIT_HIDE_DELAY_MS = 3_000L
     }
 }
