@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="bg">#FFFFFF</color>
+    <color name="card">#F1F4F8</color>
+    <color name="card_active">#FFE3E3</color>
+    <color name="card_stroke_active">#C62828</color>
+    <color name="text_primary">#0E1216</color>
+    <color name="text_secondary">#4A5560</color>
+    <color name="accent">#C62828</color>
+    <color name="live">#0F7B3E</color>
+    <color name="button">#0F7B3E</color>
+    <color name="button_text">#FFFFFF</color>
+    <color name="video_bg">#000000</color>
+    <color name="video_text">#FFFFFF</color>
+    <color name="video_text_secondary">#D9FFFFFF</color>
+    <color name="ic_launcher_background">#C62828</color>
+</resources>

@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Televisión del Perú</string>
+
+    <string name="header_title">Televisión del Perú</string>
+    <string name="header_subtitle">Toca un canal para ver</string>
+
+    <string name="idle_title">Elige un canal</string>
+    <string name="idle_hint">Toca un canal de la lista</string>
+
+    <string name="status_connecting">Conectando…</string>
+    <string name="status_live">● EN VIVO</string>
+    <string name="status_paused">En pausa</string>
+    <string name="status_retrying">Sin conexión. Reintentando…</string>
+    <string name="status_unavailable">Este canal no está disponible. Prueba otro.</string>
+
+    <string name="action_watch">VER</string>
+    <string name="action_stop">DETENER</string>
+
+    <string name="please_wait">Un momento…</string>
+
+    <string name="cd_watch">Ver %1$s</string>
+    <string name="cd_stop">Detener %1$s</string>
+
+    <!-- Versión y actualizaciones -->
+    <string name="version_placeholder">v…</string>
+    <string name="version_label">v%1$s · catálogo %2$d</string>
+    <string name="version_label_short">v%1$s</string>
+    <string name="update_action">Actualizar</string>
+    <string name="update_install">Instalar</string>
+    <string name="update_checking">Buscando actualización…</string>
+    <string name="update_up_to_date">Ya tienes la última versión (v%1$s)</string>
+    <string name="update_downloading">Descargando… %1$d%%</string>
+    <string name="update_available_toast">Versión %1$s disponible. Descargando…</string>
+    <string name="update_no_connection">No se pudo comprobar si hay actualización</string>
+    <string name="update_download_failed">No se pudo descargar la actualización</string>
+    <string name="update_permission_needed">Permite instalar apps desde esta app y vuelve a tocar Instalar</string>
+    <string name="update_install_failed">No se pudo abrir el instalador</string>
+</resources>

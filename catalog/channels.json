@@ -1,0 +1,527 @@
+{
+  "schema": 1,
+  "version": 1,
+  "updated": "2026-11-17T17:10:00.000Z",
+  "channels": [
+    {
+      "id": "tvperu",
+      "name": "TV Perú",
+      "tagline": "Canal del Estado",
+      "category": "nacional",
+      "color": "#C62828",
+      "priority": 1,
+      "active": true,
+      "candidates": [
+        {
+          "url": "http://190.93.224.42/TV-PERU/index.m3u8",
+          "type": "hls"
+        },
+        {
+          "url": "https://cablered.iptvperu.tv:1936/cablered/tvperu_new/playlist.m3u8",
+          "type": "hls"
+        },
+        {
+          "url": "http://181.224.200.5:2277/play/a0dx/index.m3u8",
+          "type": "hls"
+        }
+      ],
+      "provider": {
+        "kind": "directo",
+        "id": "tvperu"
+      },
+      "health": {
+        "fails": 0,
+        "lastOk": "2026-11-17T17:10:00.000Z"
+      }
+    },
+    {
+      "id": "america",
+      "name": "América TV",
+      "tagline": "Noticias y entretenimiento",
+      "category": "nacional",
+      "color": "#1565C0",
+      "priority": 2,
+      "active": true,
+      "candidates": [
+        {
+          "url": "http://190.93.224.42/AMERICA-TV/index.m3u8",
+          "type": "hls"
+        }
+      ],
+      "provider": {
+        "kind": "directo",
+        "id": "america"
+      },
+      "health": {
+        "fails": 0,
+        "lastOk": "2026-11-17T17:10:00.000Z"
+      }
+    },
+    {
+      "id": "latina",
+      "name": "Latina TV",
+      "tagline": "El canal de todos",
+      "category": "nacional",
+      "color": "#D81B60",
+      "priority": 3,
+      "active": true,
+      "candidates": [
+        {
+          "url": "http://190.93.224.42/LATINA/index.m3u8",
+          "type": "hls"
+        },
+        {
+          "url": "https://redirector.rudo.video/hls-video/567ffde3fa319fadf3419efda25619456231dfea/latina/latina.smil/playlist.m3u8",
+          "type": "hls"
+        },
+        {
+          "url": "https://cablered.iptvperu.tv:1936/cablered/latina_new/playlist.m3u8",
+          "type": "hls"
+        }
+      ],
+      "provider": {
+        "kind": "rudo",
+        "id": "latina"
+      },
+      "health": {
+        "fails": 0,
+        "lastOk": "2026-11-17T17:10:00.000Z"
+      }
+    },
+    {
+      "id": "atv",
+      "name": "ATV",
+      "tagline": "Noticias y series",
+      "category": "nacional",
+      "color": "#EF6C00",
+      "priority": 4,
+      "active": true,
+      "candidates": [
+        {
+          "url": "http://190.93.224.42/ATV/index.m3u8",
+          "type": "hls"
+        },
+        {
+          "url": "https://cablered.iptvperu.tv:1936/cablered/atv.stream/playlist.m3u8",
+          "type": "hls"
+        }
+      ],
+      "provider": {
+        "kind": "directo",
+        "id": "atv"
+      },
+      "health": {
+        "fails": 0,
+        "lastOk": "2026-11-17T17:10:00.000Z"
+      }
+    },
+    {
+      "id": "panamericana",
+      "name": "Panamericana TV",
+      "tagline": "Noticias y variedades",
+      "category": "nacional",
+      "color": "#0277BD",
+      "priority": 5,
+      "active": true,
+      "candidates": [
+        {
+          "url": "http://45.171.108.253:8888/PANAMERICANA/index.m3u8",
+          "type": "hls"
+        },
+        {
+          "url": "http://190.93.224.42/PANAMERICANA/index.m3u8",
+          "type": "hls"
+        },
+        {
+          "url": "http://181.224.200.5:2277/play/kkio/index.m3u8",
+          "type": "hls"
+        }
+      ],
+      "provider": {
+        "kind": "directo",
+        "id": "panamericana"
+      },
+      "health": {
+        "fails": 0,
+        "lastOk": "2026-11-17T17:10:00.000Z"
+      }
+    },
+    {
+      "id": "canaln",
+      "name": "Canal N",
+      "tagline": "Noticias 24 horas",
+      "category": "noticias",
+      "color": "#283593",
+      "priority": 6,
+      "active": true,
+      "candidates": [
+        {
+          "url": "http://190.108.91.206:9050/play/a0bd/index.m3u8",
+          "type": "hls"
+        }
+      ],
+      "provider": {
+        "kind": "directo",
+        "id": "canaln"
+      },
+      "health": {
+        "fails": 0,
+        "lastOk": "2026-11-17T17:10:00.000Z"
+      }
+    },
+    {
+      "id": "willax",
+      "name": "Willax TV",
+      "tagline": "Noticias y opinión",
+      "category": "nacional",
+      "color": "#4527A0",
+      "priority": 7,
+      "active": true,
+      "candidates": [
+        {
+          "url": "http://190.93.224.42/WILLAX/index.m3u8",
+          "type": "hls"
+        },
+        {
+          "url": "http://38.87.224.19:2220/play/a00d/index.m3u8",
+          "type": "hls"
+        }
+      ],
+      "provider": {
+        "kind": "directo",
+        "id": "willax"
+      },
+      "health": {
+        "fails": 0,
+        "lastOk": "2026-11-17T17:10:00.000Z"
+      }
+    },
+    {
+      "id": "exitosa",
+      "name": "Exitosa TV",
+      "tagline": "Noticias y espectáculos",
+      "category": "nacional",
+      "color": "#AD1457",
+      "priority": 8,
+      "active": true,
+      "candidates": [
+        {
+          "url": "http://190.93.224.42/EXITOSA/index.m3u8",
+          "type": "hls"
+        },
+        {
+          "url": "http://187.102.210.46/EXITOSA/index.m3u8",
+          "type": "hls"
+        }
+      ],
+      "provider": {
+        "kind": "directo",
+        "id": "exitosa"
+      },
+      "health": {
+        "fails": 0,
+        "lastOk": "2026-11-17T17:10:00.000Z"
+      }
+    },
+    {
+      "id": "tvperunoticias",
+      "name": "TV Perú Noticias",
+      "tagline": "Noticias 24 horas",
+      "category": "noticias",
+      "color": "#B71C1C",
+      "priority": 9,
+      "active": true,
+      "candidates": [
+        {
+          "url": "http://190.93.224.42/TV-PERU-NOTICIAS/index.m3u8",
+          "type": "hls"
+        }
+      ],
+      "provider": {
+        "kind": "directo",
+        "id": "tvperunoticias"
+      },
+      "health": {
+        "fails": 0,
+        "lastOk": "2026-11-17T17:10:00.000Z"
+      }
+    },
+    {
+      "id": "rpptv",
+      "name": "RPP TV",
+      "tagline": "Noticias y actualidad",
+      "category": "noticias",
+      "color": "#D32F2F",
+      "priority": 10,
+      "active": true,
+      "candidates": [
+        {
+          "url": "http://190.93.224.42/RPP/index.m3u8",
+          "type": "hls"
+        },
+        {
+          "url": "https://redirector.rudo.video/hls-video/567ffde3fa319fadf3419efda25619456231dfea/rpptv/rpptv.smil/playlist.m3u8",
+          "type": "hls"
+        },
+        {
+          "url": "https://live-evg8.tv360.bitel.com.pe/bitel/rpp_abr/playlist.m3u8",
+          "type": "hls"
+        }
+      ],
+      "provider": {
+        "kind": "rudo",
+        "id": "rpptv"
+      },
+      "health": {
+        "fails": 0,
+        "lastOk": "2026-11-17T17:10:00.000Z"
+      }
+    },
+    {
+      "id": "global",
+      "name": "Global TV",
+      "tagline": "Noticias y deportes",
+      "category": "nacional",
+      "color": "#00897B",
+      "priority": 11,
+      "active": true,
+      "candidates": [
+        {
+          "url": "https://cablered.iptvperu.tv:1936/cablered/global.stream/playlist.m3u8",
+          "type": "hls"
+        },
+        {
+          "url": "https://live-evg7.tv360.bitel.com.pe/bitel/global_abr/playlist.m3u8",
+          "type": "hls"
+        },
+        {
+          "url": "http://190.93.224.42/GLOBAL/index.m3u8",
+          "type": "hls"
+        }
+      ],
+      "provider": {
+        "kind": "bitel",
+        "id": "global"
+      },
+      "health": {
+        "fails": 0,
+        "lastOk": "2026-11-17T17:10:00.000Z"
+      }
+    },
+    {
+      "id": "latinanoticias",
+      "name": "Latina Noticias 24/7",
+      "tagline": "Noticias 24/7",
+      "category": "noticias",
+      "color": "#880E4F",
+      "priority": 12,
+      "active": true,
+      "candidates": [
+        {
+          "url": "https://dai.google.com/linear/hls/event/oYQGDqEGTmGdHE_fz9oLlg/master.m3u8",
+          "type": "hls"
+        },
+        {
+          "url": "https://redirector.rudo.video/hls-video/567ffde3fa319fadf3419efda25619456231dfea/latinanoticias/latinanoticias.smil/playlist.m3u8",
+          "type": "hls"
+        }
+      ],
+      "provider": {
+        "kind": "dai",
+        "id": "oYQGDqEGTmGdHE_fz9oLlg"
+      },
+      "health": {
+        "fails": 0,
+        "lastOk": "2026-11-17T17:10:00.000Z"
+      }
+    },
+    {
+      "id": "latele",
+      "name": "La Tele",
+      "tagline": "Series y variedades",
+      "category": "nacional",
+      "color": "#7B1FA2",
+      "priority": 13,
+      "active": true,
+      "candidates": [
+        {
+          "url": "http://190.93.224.42/LA-TELE/index.m3u8",
+          "type": "hls"
+        },
+        {
+          "url": "https://cablered.iptvperu.tv:1936/cablered/la_tele.stream/playlist.m3u8",
+          "type": "hls"
+        }
+      ],
+      "provider": {
+        "kind": "directo",
+        "id": "latele"
+      },
+      "health": {
+        "fails": 0,
+        "lastOk": "2026-11-17T17:10:00.000Z"
+      }
+    },
+    {
+      "id": "canalipe",
+      "name": "Canal IPe",
+      "tagline": "Señal cultural",
+      "category": "nacional",
+      "color": "#2E7D32",
+      "priority": 14,
+      "active": true,
+      "candidates": [
+        {
+          "url": "http://190.93.224.42/IPE/index.m3u8",
+          "type": "hls"
+        }
+      ],
+      "provider": {
+        "kind": "directo",
+        "id": "ipe"
+      },
+      "health": {
+        "fails": 0,
+        "lastOk": "2026-11-17T17:10:00.000Z"
+      }
+    },
+    {
+      "id": "agro",
+      "name": "Agro TV",
+      "tagline": "El campo peruano",
+      "category": "regional",
+      "color": "#558B2F",
+      "priority": 15,
+      "active": true,
+      "candidates": [
+        {
+          "url": "https://live-evg8.tv360.bitel.com.pe/bitel/agroSRT/playlist.m3u8",
+          "type": "hls"
+        }
+      ],
+      "provider": {
+        "kind": "bitel",
+        "id": "agro"
+      },
+      "health": {
+        "fails": 0,
+        "lastOk": "2026-11-17T17:10:00.000Z"
+      }
+    },
+    {
+      "id": "ucayalina",
+      "name": "Ucayalina de Televisión",
+      "tagline": "La voz de Ucayali",
+      "category": "regional",
+      "color": "#00695C",
+      "priority": 16,
+      "active": true,
+      "candidates": [
+        {
+          "url": "https://live-evg11.tv360.bitel.com.pe/bitel/utv/playlist.m3u8",
+          "type": "hls"
+        }
+      ],
+      "provider": {
+        "kind": "bitel",
+        "id": "utv"
+      },
+      "health": {
+        "fails": 0,
+        "lastOk": "2026-11-17T17:10:00.000Z"
+      }
+    },
+    {
+      "id": "qosqo",
+      "name": "Qosqo Times",
+      "tagline": "El Cusco en vivo",
+      "category": "regional",
+      "color": "#8E24AA",
+      "priority": 17,
+      "active": true,
+      "candidates": [
+        {
+          "url": "https://live-evg5.tv360.bitel.com.pe/bitel/qosqo/playlist.m3u8",
+          "type": "hls"
+        }
+      ],
+      "provider": {
+        "kind": "bitel",
+        "id": "qosqo"
+      },
+      "health": {
+        "fails": 0,
+        "lastOk": "2026-11-17T17:10:00.000Z"
+      }
+    },
+    {
+      "id": "tvnorte",
+      "name": "TV Norte Chiclayo",
+      "tagline": "La señal del norte",
+      "category": "regional",
+      "color": "#039BE5",
+      "priority": 18,
+      "active": true,
+      "candidates": [
+        {
+          "url": "https://live-evg5.tv360.bitel.com.pe/bitel/tvnorte/playlist.m3u8",
+          "type": "hls"
+        }
+      ],
+      "provider": {
+        "kind": "bitel",
+        "id": "tvnorte"
+      },
+      "health": {
+        "fails": 0,
+        "lastOk": "2026-11-17T17:10:00.000Z"
+      }
+    },
+    {
+      "id": "cajamarca",
+      "name": "Cajamarca TV",
+      "tagline": "Noticias de Cajamarca",
+      "category": "regional",
+      "color": "#F57C00",
+      "priority": 19,
+      "active": true,
+      "candidates": [
+        {
+          "url": "https://live-evg8.tv360.bitel.com.pe/bitel/cajamarcatvSRT/playlist.m3u8",
+          "type": "hls"
+        }
+      ],
+      "provider": {
+        "kind": "bitel",
+        "id": "cajamarcatv"
+      },
+      "health": {
+        "fails": 0,
+        "lastOk": "2026-11-17T17:10:00.000Z"
+      }
+    },
+    {
+      "id": "andes",
+      "name": "Andes TV",
+      "tagline": "Cultura andina",
+      "category": "regional",
+      "color": "#8D6E63",
+      "priority": 20,
+      "active": true,
+      "candidates": [
+        {
+          "url": "https://live-evg7.tv360.bitel.com.pe/bitel/andestvSRT/playlist.m3u8",
+          "type": "hls"
+        }
+      ],
+      "provider": {
+        "kind": "bitel",
+        "id": "andes"
+      },
+      "health": {
+        "fails": 0,
+        "lastOk": "2026-11-17T17:10:00.000Z"
+      }
+    }
+  ]
+}

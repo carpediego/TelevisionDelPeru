@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="108dp"
+    android:height="108dp"
+    android:viewportWidth="108"
+    android:viewportHeight="108">
+
+    <!-- Pantalla de televisor -->
+    <path
+        android:fillColor="#00000000"
+        android:pathData="M30,36 h48 a8,8 0 0 1 8,8 v26 a8,8 0 0 1 -8,8 h-48 a8,8 0 0 1 -8,-8 v-26 a8,8 0 0 1 8,-8 z"
+        android:strokeColor="#FFFFFF"
+        android:strokeLineCap="round"
+        android:strokeWidth="5" />
+
+    <!-- Antena -->
+    <path
+        android:fillColor="#00000000"
+        android:pathData="M40,26 L54,19 L68,26"
+        android:strokeColor="#FFFFFF"
+        android:strokeLineCap="round"
+        android:strokeLineJoin="round"
+        android:strokeWidth="5" />
+
+    <!-- Play -->
+    <path
+        android:fillColor="#FFFFFF"
+        android:pathData="M48,46 L66,57 L48,68 Z" />
+
+</vector>
