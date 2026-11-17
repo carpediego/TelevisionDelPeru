@@ -2,8 +2,8 @@
 
 **App Android de TV peruana en vivo · una pantalla · para personas mayores · sin publicidad**
 
-Documento de trabajo. Fecha: 17/11/2026 · Estado: **F1–F4 probadas en emulador;
-F5 (pantalla completa) probada; publicación de la 1.1.0 en GitHub en curso.**
+Documento de trabajo. Fecha: 17/11/2026 · Estado: **F1–F6 probadas en emulador;
+versión 1.1.0 publicada en GitHub y actualización desde 1.0.0 verificada.**
 
 ---
 
@@ -179,33 +179,32 @@ CatalogRepository → assets/channels.json + caché + raw.githubusercontent/jsDe
 
 ---
 
-## 7. Publicación pendiente
+## 7. Publicación en GitHub (hecha)
 
-El código no tiene credenciales de GitHub en este entorno (`gh` no está instalado y no
-hay `origin`). Para publicar:
+| Elemento | Valor |
+|---|---|
+| Repositorio | https://github.com/carpediego/TelevisionDelPeru |
+| Release | https://github.com/carpediego/TelevisionDelPeru/releases/tag/v1.1.0 |
+| APK del Release | `TelevisionDelPeru-1.1.0.apk` · 2.074.097 bytes |
+| `sha256` | `8ca8ac7f75b6e4ef890594920455d267a13f0c644eb83559f436b3ef062264ab` |
+| `version.json` en `main` | `versionCode 2` · `versionName 1.1.0` |
+| Actualización probada | 1.0.0 → 5 toques → descarga → instalador → 1.1.0 (emulador Android 15) |
 
-```powershell
-cd "X:\APPS CREADAS\Televisión"
-git init
-git add .
-git commit -m "Television del Peru 1.0.0"
-git remote add origin https://github.com/carpediego/TelevisionDelPeru.git
-git branch -M main
-git push -u origin main
-```
+El flujo completo quedó verificado: una app **1.0.0** ya instalada, al recibir los 5
+toques en el título, leyó `version.json`, descargó el APK del Release, comprobó el
+`sha256`, abrió el instalador del sistema y quedó en **1.1.0** sin desinstalar.
 
-Después:
+Para publicar una versión nueva:
 
-1. Crear el Release `v1.0.0` y subir `dist\TelevisionDelPeru-1.0.0.apk`.
-2. Verificar que `version.json` tenga la URL y el `sha256` correctos.
-3. Activar *Actions → Catalogo* (necesita `permissions: contents: write`, ya está).
-4. Instalar el APK en el teléfono y completar la lista de §6.
+1. Subir `versionCode` y `versionName` en `app/build.gradle.kts`.
+2. `.\build.ps1`.
+3. `.\tools\release.ps1 -Notes "Qué cambió"` → APK estable + `version.json` con sha256.
+4. Crear el Release `vX.Y.Z` y subir `dist\TelevisionDelPeru-X.Y.Z.apk`.
+5. `git add version.json; git commit -m "version X.Y.Z"; git push`.
+6. Probar con los 5 toques desde la versión anterior.
 
-> El `version.json` generado apunta a
-> `https://github.com/carpediego/TelevisionDelPeru/releases/download/v1.0.0/TelevisionDelPeru-1.0.0.apk`.
-> Mientras el Release no exista, el actualizador responderá 404 (la app sigue funcionando
-> con el catálogo embebido y muestra “No se pudo comprobar si hay actualización” solo si
-> se fuerza con los 5 toques).
+El robot de catálogo corre cada 6 h desde *Actions → Catalogo* (`permissions: contents:
+write` ya está configurado).
 
 ---
 
@@ -225,6 +224,6 @@ Después:
 ## 9. Próximo paso
 
 1. Probar el APK en un teléfono real (lista de §6).
-2. Publicar el repo y el Release v1.0.0.
+2. Probar en el teléfono la actualización 1.0.0 → 1.1.0 con los 5 toques.
 3. Si algún canal falla en el teléfono, corregir su URL en `catalog/channels.json` y
    hacer commit: la app lo recoge sola, sin recompilar.

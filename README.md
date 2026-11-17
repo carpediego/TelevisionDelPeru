@@ -319,6 +319,14 @@ no está pensado para seguir con la pantalla apagada; al volver, se reanuda en v
 
 ---
 
+## Enlaces
+
+- Repositorio: https://github.com/carpediego/TelevisionDelPeru
+- Release 1.1.0: https://github.com/carpediego/TelevisionDelPeru/releases/tag/v1.1.0
+- `version.json`: https://raw.githubusercontent.com/carpediego/TelevisionDelPeru/main/version.json
+
+---
+
 ## Nota legal
 
 Los streams son de terceros: la app **solo enlaza** direcciones públicas, no aloja, no
@@ -340,7 +348,9 @@ tienda, hay que revisar los derechos de cada canal.
       reanudación en vivo, reanudación tras muerte del proceso, modo avión con
       “Reintentando…”, notificación de reproducción, gesto de 5 toques, pantalla completa
       y vuelta a vertical con SALIR y con atrás.
-- [ ] Repo `github.com/carpediego/TelevisionDelPeru` creado y primer `push`.
-- [ ] Release `v1.1.0` con el APK publicado.
+- [x] Repo `github.com/carpediego/TelevisionDelPeru` creado y primer `push`.
+- [x] Release `v1.1.0` con el APK publicado (`sha256` verificado).
+- [x] Actualización 1.0.0 → 1.1.0 probada en emulador con los 5 toques: descarga,
+      comprobación de sha256, instalador del sistema y app actualizada.
 - [ ] Pruebas en teléfono real (instalar, reproducir, pausar 5 min, pantalla bloqueada,
       modo avión, reinicio, pantalla completa).
