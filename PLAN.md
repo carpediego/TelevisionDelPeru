@@ -3,7 +3,8 @@
 **App Android de TV peruana en vivo · una pantalla · para personas mayores · sin publicidad**
 
 Documento de trabajo. Fecha: 17/11/2026 · Estado: **F1–F6 probadas en emulador;
-versión 1.1.0 publicada en GitHub y actualización desde 1.0.0 verificada.**
+versión 1.2.0 publicada en GitHub; actualizaciones 1.0.0 → 1.1.0 y 1.1.0 → 1.2.0
+verificadas con los 5 toques.**
 
 ---
 
@@ -39,7 +40,7 @@ tiene tilde.
 | **F2** Catálogo, lista y pantalla | ✅ hecho | 20 canales, monogramas, colores día/noche, video 16:9, botón grande. |
 | **F3** Reproducción | ✅ hecho | ExoPlayer HLS en el servicio, cambio de canal, detener, estados. |
 | **F4** Servicio + reanudar en vivo | 🟢 probado en emulador | Reintentos, URLs alternativas, `onPlaybackResumption`, `MediaButtonReceiver`, pausa al salir y vigilante de conexiones colgadas. Falta probarlo en teléfono real. |
-| **F5** Actualizador + release + docs | 🟡 casi | `version.json`, `tools/release.ps1`, APK 1.2.0 firmado y README/PLAN listos. Falta publicar el Release v1.2.0 en GitHub. |
+| **F5** Actualizador + release + docs | ✅ publicado | `version.json`, `tools/release.ps1`, APK 1.2.0 firmado y Release v1.2.0 en GitHub. |
 | **F6** Pantalla completa horizontal | ✅ probada en emulador | AMPLIAR/tocar el video, giro a horizontal, SALIR solo al tocar (autooculta a los 3 s), salida con SALIR/atrás y fondo negro en el recorte de la cámara. |
 
 ---
@@ -194,9 +195,10 @@ CatalogRepository → assets/channels.json + caché + raw.githubusercontent/jsDe
 | `version.json` en `main` | `versionCode 3` · `versionName 1.2.0` |
 | Actualización probada | 1.0.0 → 1.1.0 y 1.1.0 → 1.2.0 con los 5 toques (emulador Android 15) |
 
-El flujo completo quedó verificado: una app **1.0.0** ya instalada, al recibir los 5
-toques en el título, leyó `version.json`, descargó el APK del Release, comprobó el
-`sha256`, abrió el instalador del sistema y quedó en **1.2.0** sin desinstalar.
+El flujo completo quedó verificado dos veces: una app **1.0.0** ya instalada, al recibir los
+5 toques en el título, leyó `version.json`, descargó el APK del Release, comprobó el
+`sha256`, abrió el instalador del sistema y quedó en **1.1.0** sin desinstalar. Después
+se repitió desde **1.1.0** y quedó en **1.2.0**.
 
 Para publicar una versión nueva:
 

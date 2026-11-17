@@ -355,6 +355,7 @@ tienda, hay que revisar los derechos de cada canal.
 - [x] Release `v1.2.0` con el APK publicado (`sha256` verificado).
 - [x] Actualización 1.0.0 → 1.1.0 probada en emulador con los 5 toques: descarga,
       comprobación de sha256, instalador del sistema y app actualizada.
+- [x] Actualización 1.1.0 → 1.2.0 probada igual, con el mismo resultado.
 - [x] SALIR en pantalla completa solo al tocar el video, con autoocultado a los 3 s.
 - [x] Fondo negro puro en pantalla completa, incluida la zona del recorte de la cámara
       (probado con recorte simulado en modo oscuro).
