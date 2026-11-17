@@ -5,7 +5,7 @@ personas mayores: una sola pantalla, letras grandes, un toque para ver y un bot�
 para detener. Sin cuentas, sin publicidad, sin analítica.
 
 - **Paquete:** `pe.televisiondelperu.app`
-- **Versión:** 1.0.0 (versionCode 1)
+- **Versión:** 1.1.0 (versionCode 2)
 - **Android:** 7.0 (API 24) en adelante · targetSdk 36
 - **Repositorio:** `github.com/carpediego/TelevisionDelPeru` (raíz del repo = raíz de la app)
 - **Catálogo:** 20 canales verificados (14 nacionales/noticias y 6 regionales)
@@ -28,7 +28,7 @@ para detener. Sin cuentas, sin publicidad, sin analítica.
 │ ┌──────────────────────────────────┐ │
 │ │            DETENER               │ │
 │ └──────────────────────────────────┘ │
-│        v1.0.0 · catálogo 1  Actualizar│
+│        v1.1.0 · catálogo 1  Actualizar│
 ├──────────────────────────────────────┤
 │ [TP]  TV Perú                        │
 │       Canal del Estado               │
@@ -44,11 +44,22 @@ para detener. Sin cuentas, sin publicidad, sin analítica.
 - Al salir de la app el video **se pausa** (no sigue sonando a escondidas).
 - El catálogo se actualiza solo desde GitHub; el código se actualiza desde la app.
 
+### Pantalla completa (1.1.0)
+
+- Con un canal puesto aparece **AMPLIAR** sobre el video. Al tocarlo —o al tocar el
+  video— la app pasa a **pantalla completa** y gira a **horizontal**.
+- En horizontal se ocultan la cabecera, el panel y la lista: queda el video y un botón
+  **SALIR**.
+- **SALIR** o el botón atrás vuelven a vertical y a la pantalla normal, sin cortar la
+  reproducción.
+- El video mantiene la proporción 16:9; según el teléfono pueden quedar franjas negras
+  a los lados. Es mejor así que recortar el marcador o los logos del canal.
+
 ### Capturas
 
-| Inicio | En vivo |
-|---|---|
-| ![Pantalla de inicio](docs/captura-inicio.png) | ![TV Perú en vivo](docs/captura-en-vivo.png) |
+| Inicio | En vivo | Pantalla completa |
+|---|---|---|
+| ![Pantalla de inicio](docs/captura-inicio.png) | ![TV Perú en vivo](docs/captura-en-vivo.png) | ![Pantalla completa](docs/captura-pantalla-completa.png) |
 
 Tomadas en un emulador Android 15 (1080 × 2340). En un teléfono real se ven igual,
 con el tamaño de letra del sistema.
@@ -90,7 +101,7 @@ GitHub: version.json  ──►  la app compara versionCode
                          abre el instalador de Android
 ```
 
-- **Etiqueta al pie:** `v1.0.0 · catálogo 1`. Sirve también para soporte: "decime qué
+- **Etiqueta al pie:** `v1.1.0 · catálogo 1`. Sirve también para soporte: "decime qué
   dice abajo".
 - **Comprobación silenciosa:** al abrir la app, como máximo **1 vez al día**. Si hay
   versión nueva aparece un *Actualizar* chiquito al lado de la etiqueta; si no, no se
@@ -152,7 +163,7 @@ minutos; guardar esa dirección dejaría el canal muerto al rato.
 
 ```powershell
 & "$env:LOCALAPPDATA\Android\Sdk\platform-tools\adb.exe" devices
-& "$env:LOCALAPPDATA\Android\Sdk\platform-tools\adb.exe" install -r ".\dist\TelevisionDelPeru-1.0.0.apk"
+& "$env:LOCALAPPDATA\Android\Sdk\platform-tools\adb.exe" install -r ".\dist\TelevisionDelPeru-1.1.0.apk"
 ```
 
 ### Opción B — sin cable
@@ -319,15 +330,17 @@ tienda, hay que revisar los derechos de cada canal.
 ## Estado de verificación
 
 - [x] Proyecto compilando con AGP 8.13.2 / Kotlin 2.4.21 / Gradle 8.14.3 / JDK 21.
-- [x] APK release firmado en `dist\TelevisionDelPeru-1.0.0.apk` (1,97 MB, esquema v2).
+- [x] APK release firmado en `dist\TelevisionDelPeru-1.1.0.apk` (1,98 MB, esquema v2).
 - [x] 20 canales verificados con `tools/validate.mjs` (manifiesto + variante + segmento).
 - [x] Catálogo remoto, caché local y copia embebida.
 - [x] Actualizador con `version.json`, `sha256` y `FileProvider`.
 - [x] Robot de GitHub Actions cada 6 horas.
+- [x] Pantalla completa horizontal con botón AMPLIAR / SALIR, sin cortar la reproducción.
 - [x] Probado en emulador Android 15: abre, reproduce TV Perú, DETENER, pausa al salir,
       reanudación en vivo, reanudación tras muerte del proceso, modo avión con
-      “Reintentando…”, notificación de reproducción y gesto de 5 toques.
+      “Reintentando…”, notificación de reproducción, gesto de 5 toques, pantalla completa
+      y vuelta a vertical con SALIR y con atrás.
 - [ ] Repo `github.com/carpediego/TelevisionDelPeru` creado y primer `push`.
-- [ ] Release `v1.0.0` con el APK publicado.
+- [ ] Release `v1.1.0` con el APK publicado.
 - [ ] Pruebas en teléfono real (instalar, reproducir, pausar 5 min, pantalla bloqueada,
-      modo avión, reinicio).
+      modo avión, reinicio, pantalla completa).

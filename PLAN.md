@@ -2,8 +2,8 @@
 
 **App Android de TV peruana en vivo · una pantalla · para personas mayores · sin publicidad**
 
-Documento de trabajo. Fecha: 17/11/2026 · Estado: **F1–F3 completadas y compiladas;
-F4 pendiente de pruebas en teléfono real; F5 pendiente de publicar en GitHub.**
+Documento de trabajo. Fecha: 17/11/2026 · Estado: **F1–F4 probadas en emulador;
+F5 (pantalla completa) probada; publicación de la 1.1.0 en GitHub en curso.**
 
 ---
 
@@ -13,6 +13,7 @@ F4 pendiente de pruebas en teléfono real; F5 pendiente de publicar en GitHub.**
 |---|---|
 | Nombre visible | **Televisión del Perú** |
 | Package / applicationId | `pe.televisiondelperu.app` |
+| Versión | `1.1.0` (`versionCode 2`) |
 | Distribución | **APK directo** (sin Play Store por ahora) |
 | SDK | `minSdk 24`, `compileSdk 36`, `targetSdk 36` |
 | Kotlin / AGP / Gradle | `2.4.21` / `8.13.2` / `8.14.3` |
@@ -38,7 +39,8 @@ tiene tilde.
 | **F2** Catálogo, lista y pantalla | ✅ hecho | 20 canales, monogramas, colores día/noche, video 16:9, botón grande. |
 | **F3** Reproducción | ✅ hecho | ExoPlayer HLS en el servicio, cambio de canal, detener, estados. |
 | **F4** Servicio + reanudar en vivo | 🟢 probado en emulador | Reintentos, URLs alternativas, `onPlaybackResumption`, `MediaButtonReceiver`, pausa al salir y vigilante de conexiones colgadas. Falta probarlo en teléfono real. |
-| **F5** Actualizador + release + docs | 🟡 casi | `version.json`, `tools/release.ps1`, APK firmado y README/PLAN listos. Falta crear el repo y publicar el Release v1.0.0. |
+| **F5** Actualizador + release + docs | 🟡 casi | `version.json`, `tools/release.ps1`, APK 1.1.0 firmado y README/PLAN listos. Falta publicar el Release v1.1.0 en GitHub. |
+| **F6** Pantalla completa horizontal | ✅ probada en emulador | Botón AMPLIAR sobre el video, giro a horizontal, SALIR y atrás vuelven a vertical sin cortar la reproducción. |
 
 ---
 
@@ -126,6 +128,8 @@ CatalogRepository → assets/channels.json + caché + raw.githubusercontent/jsDe
 10. `onTaskRemoved` solo cierra el servicio si no está reproduciendo.
 11. Vigilante cada 3 s: si la conexión lleva más de 30 s sin resolver, se trata como
     error y entra la cadena de candidatos/reintentos (evita quedarse en «Conectando…»).
+12. Pantalla completa: AMPLIAR (o tocar el video) pone el video a pantalla completa y
+    gira a horizontal; SALIR o atrás vuelven a vertical sin cortar la reproducción.
 
 ---
 
@@ -134,9 +138,9 @@ CatalogRepository → assets/channels.json + caché + raw.githubusercontent/jsDe
 | Comprobación | Resultado |
 |---|---|
 | `node tools/validate.mjs` | 20/20 canales OK (manifiesto + variante + segmento) |
-| `.\build.ps1` | APK release firmado: `dist\TelevisionDelPeru-1.0.0.apk` · 1,97 MB |
+| `.\build.ps1` | APK release firmado: `dist\TelevisionDelPeru-1.1.0.apk` · 1,98 MB |
 | Firma | Keystore nueva en `keystore\televisiondelperu.jks` · SHA-256 `65DF9FBF…02BF7805` |
-| `sha256` del APK | `53cc5f836bfc927db485e375c364f9da00f77976565ad4b48532b02cbceed7b2` |
+| `sha256` del APK | `8ca8ac7f75b6e4ef890594920455d267a13f0c644eb83559f436b3ef062264ab` |
 | Verificación de firma | `apksigner verify` → esquema v2, 1 firmante, DN correcto |
 | Catálogo embebido | APK incluye `assets/channels.json` (12.517 bytes, misma copia) |
 | Permisos | Los 7 del documento + permiso interno de AndroidX (no visible al usuario) |
@@ -155,6 +159,9 @@ CatalogRepository → assets/channels.json + caché + raw.githubusercontent/jsDe
 | Notificación de reproducción | ✅ MediaStyle con TV Perú, Pausa y controles |
 | 5 toques sobre el título | ✅ muestra “Buscando actualización…” |
 | Vigilante de conexión colgada | ✅ a los 30 s fuerza un reintento si el player no responde |
+| AMPLIAR / tocar el video | ✅ pasa a 2340×1080 (horizontal), sin barras del sistema |
+| SALIR en pantalla completa | ✅ vuelve a 1080×2340 (vertical) y muestra la UI normal |
+| Botón atrás en pantalla completa | ✅ sale de pantalla completa; un segundo atrás minimiza |
 
 ### Por verificar en teléfono real
 
@@ -165,8 +172,9 @@ CatalogRepository → assets/channels.json + caché + raw.githubusercontent/jsDe
 - [ ] Reiniciar el teléfono y dar play desde la tarjeta del sistema.
 - [ ] Modo avión durante la reproducción → “Sin conexión. Reintentando…” y recuperación.
 - [ ] DETENER corta y no deja nada sonando.
-- [ ] Al pie se ve `v1.0.0 · catálogo 1`.
-- [ ] 5 toques sobre el título → “Ya tienes la última versión (v1.0.0)”.
+- [ ] Al pie se ve `v1.1.0 · catálogo 1`.
+- [ ] 5 toques sobre el título → “Ya tienes la última versión (v1.1.0)”.
+- [ ] Pantalla completa, giro a horizontal, SALIR y atrás.
 - [ ] Probar en Xiaomi/Redmi y Samsung el ahorro de batería.
 
 ---

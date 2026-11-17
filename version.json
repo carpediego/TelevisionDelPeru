@@ -1,9 +1,9 @@
 {
   "schema": 1,
-  "versionCode": 1,
-  "versionName": "1.0.0",
-  "apkUrl": "https://github.com/carpediego/TelevisionDelPeru/releases/download/v1.0.0/TelevisionDelPeru-1.0.0.apk",
-  "sha256": "53cc5f836bfc927db485e375c364f9da00f77976565ad4b48532b02cbceed7b2",
-  "notes": "Primera versión: 20 canales peruanos en vivo, catálogo remoto y actualizador.",
+  "versionCode": 2,
+  "versionName": "1.1.0",
+  "apkUrl": "https://github.com/carpediego/TelevisionDelPeru/releases/download/v1.1.0/TelevisionDelPeru-1.1.0.apk",
+  "sha256": "8ca8ac7f75b6e4ef890594920455d267a13f0c644eb83559f436b3ef062264ab",
+  "notes": "Pantalla completa en horizontal (AMPLIAR / SALIR) y mejoras de reconexión.",
   "publishedAt": "2026-11-17"
 }

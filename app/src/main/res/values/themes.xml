@@ -89,6 +89,28 @@
         <item name="android:textColor">@color/video_text_secondary</item>
     </style>
 
+    <style name="TextFullscreenPill">
+        <item name="android:textSize">13sp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textColor">@color/video_text</item>
+        <item name="android:background">@drawable/bg_fullscreen_pill</item>
+        <item name="android:gravity">center</item>
+        <item name="android:paddingStart">12dp</item>
+        <item name="android:paddingEnd">14dp</item>
+        <item name="android:includeFontPadding">false</item>
+    </style>
+
+    <style name="TextExitFullscreen">
+        <item name="android:textSize">18sp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textColor">@color/video_text</item>
+        <item name="android:background">@drawable/bg_fullscreen_pill</item>
+        <item name="android:gravity">center</item>
+        <item name="android:paddingStart">28dp</item>
+        <item name="android:paddingEnd">28dp</item>
+        <item name="android:includeFontPadding">false</item>
+    </style>
+
     <style name="ButtonBig">
         <item name="android:textSize">21sp</item>
         <item name="android:textStyle">bold</item>

@@ -8,6 +8,7 @@
     android:orientation="vertical">
 
     <LinearLayout
+        android:id="@+id/header"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
@@ -74,6 +75,34 @@
                 style="@style/TextVideoName" />
 
         </LinearLayout>
+
+        <TextView
+            android:id="@+id/btnFullscreen"
+            android:layout_width="wrap_content"
+            android:layout_height="40dp"
+            android:layout_gravity="top|end"
+            android:layout_margin="8dp"
+            android:clickable="true"
+            android:contentDescription="@string/cd_fullscreen"
+            android:drawableStart="@drawable/ic_fullscreen"
+            android:drawablePadding="6dp"
+            android:drawableTint="@color/video_text"
+            android:focusable="true"
+            android:text="@string/action_fullscreen"
+            android:visibility="gone"
+            style="@style/TextFullscreenPill" />
+
+        <TextView
+            android:id="@+id/btnExitFullscreen"
+            android:layout_width="wrap_content"
+            android:layout_height="56dp"
+            android:layout_gravity="bottom|center_horizontal"
+            android:layout_marginBottom="24dp"
+            android:clickable="true"
+            android:focusable="true"
+            android:text="@string/action_exit_fullscreen"
+            android:visibility="gone"
+            style="@style/TextExitFullscreen" />
 
     </FrameLayout>
 

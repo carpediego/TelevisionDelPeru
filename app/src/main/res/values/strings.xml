@@ -16,6 +16,9 @@
 
     <string name="action_watch">VER</string>
     <string name="action_stop">DETENER</string>
+    <string name="action_fullscreen">AMPLIAR</string>
+    <string name="action_exit_fullscreen">SALIR</string>
+    <string name="cd_fullscreen">Ver en pantalla completa</string>
 
     <string name="please_wait">Un momento…</string>
 

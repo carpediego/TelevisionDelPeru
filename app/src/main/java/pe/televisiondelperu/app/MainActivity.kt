@@ -2,12 +2,16 @@ package pe.televisiondelperu.app
 
 import android.Manifest
 import android.content.ComponentName
+import android.content.pm.ActivityInfo
 import android.content.pm.PackageManager
+import android.content.res.Configuration
 import android.os.Build
 import android.os.Bundle
 import android.os.SystemClock
 import android.view.View
+import android.view.ViewGroup
 import android.widget.Button
+import android.widget.LinearLayout
 import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
@@ -17,6 +21,7 @@ import androidx.core.content.ContextCompat
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowCompat
 import androidx.core.view.WindowInsetsCompat
+import androidx.core.view.WindowInsetsControllerCompat
 import androidx.lifecycle.Lifecycle
 import androidx.media3.common.Player
 import androidx.media3.session.MediaController
@@ -57,6 +62,16 @@ class MainActivity : AppCompatActivity() {
     private lateinit var videoPlaceholder: View
     private lateinit var txtPlaceholder: TextView
     private lateinit var txtPlaceholderName: TextView
+    private lateinit var rootView: View
+    private lateinit var header: View
+    private lateinit var infoPanel: View
+    private lateinit var channelList: RecyclerView
+    private lateinit var videoFrame: View
+    private lateinit var btnFullscreen: View
+    private lateinit var btnExitFullscreen: View
+
+    private var isFullscreen = false
+    private var normalVideoHeight = 0
 
     private var controller: MediaController? = null
     private var controllerFuture: ListenableFuture<MediaController>? = null
@@ -98,6 +113,7 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
         val root = findViewById<View>(R.id.root)
+        rootView = root
         ViewCompat.setOnApplyWindowInsetsListener(root) { view, insets ->
             val bars = insets.getInsets(
                 WindowInsetsCompat.Type.systemBars() or WindowInsetsCompat.Type.displayCutout()
@@ -105,6 +121,12 @@ class MainActivity : AppCompatActivity() {
             view.setPadding(bars.left, bars.top, bars.right, bars.bottom)
             WindowInsetsCompat.CONSUMED
         }
+
+        // Si la actividad se recrea (por ejemplo tras morir el proceso), se vuelve
+        // siempre al modo normal vertical, nunca a una pantalla completa huérfana.
+        requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT
+        WindowInsetsControllerCompat(window, window.decorView)
+            .show(WindowInsetsCompat.Type.systemBars())
 
         txtNowTitle = findViewById(R.id.txtNowTitle)
         txtNowStatus = findViewById(R.id.txtNowStatus)
@@ -115,14 +137,19 @@ class MainActivity : AppCompatActivity() {
         videoPlaceholder = findViewById(R.id.videoPlaceholder)
         txtPlaceholder = findViewById(R.id.txtPlaceholder)
         txtPlaceholderName = findViewById(R.id.txtPlaceholderName)
+        header = findViewById(R.id.header)
+        infoPanel = findViewById(R.id.infoPanel)
+        videoFrame = findViewById(R.id.videoFrame)
+        btnFullscreen = findViewById(R.id.btnFullscreen)
+        btnExitFullscreen = findViewById(R.id.btnExitFullscreen)
 
         setupVideoSize()
 
         adapter = ChannelAdapter { channel -> onChannelClicked(channel) }
-        val list = findViewById<RecyclerView>(R.id.rvChannels)
-        list.layoutManager = LinearLayoutManager(this)
-        list.adapter = adapter
-        list.itemAnimator = null
+        channelList = findViewById(R.id.rvChannels)
+        channelList.layoutManager = LinearLayoutManager(this)
+        channelList.adapter = adapter
+        channelList.itemAnimator = null
 
         val snapshot = repository.load()
         channels = snapshot.channels
@@ -134,6 +161,12 @@ class MainActivity : AppCompatActivity() {
         repository.refreshAsync { fresh -> applyCatalog(fresh) }
 
         btnAction.setOnClickListener { onActionClicked() }
+        btnFullscreen.setOnClickListener { enterFullscreen() }
+        btnExitFullscreen.setOnClickListener { exitFullscreen() }
+        // Tocar el video también lo pone en pantalla completa: es el gesto natural.
+        videoFrame.setOnClickListener {
+            if (!isFullscreen && PlaybackStatus.current.channelId != null) enterFullscreen()
+        }
 
         // Actualizador: una comprobación al día, chip "Actualizar" solo si hay novedad
         // y 5 toques sobre el título como atajo para forzarla.
@@ -144,8 +177,10 @@ class MainActivity : AppCompatActivity() {
 
         onBackPressedDispatcher.addCallback(this, object : OnBackPressedCallback(true) {
             override fun handleOnBackPressed() {
-                // Nunca cerramos de golpe: la app se minimiza y el video se pausa.
-                moveTaskToBack(true)
+                // En pantalla completa, atrás primero sale de ella. Nunca cerramos
+                // de golpe: fuera de pantalla completa la app se minimiza y el video
+                // se pausa.
+                if (isFullscreen) exitFullscreen() else moveTaskToBack(true)
             }
         })
 
@@ -185,17 +220,27 @@ class MainActivity : AppCompatActivity() {
         super.onDestroy()
     }
 
+    override fun onConfigurationChanged(newConfig: Configuration) {
+        super.onConfigurationChanged(newConfig)
+        // El giro a horizontal puede volver a mostrar las barras del sistema.
+        if (isFullscreen) {
+            WindowInsetsControllerCompat(window, window.decorView)
+                .hide(WindowInsetsCompat.Type.systemBars())
+            rootView.setPadding(0, 0, 0, 0)
+        }
+    }
+
     /**
      * El video ocupa el ancho de la pantalla con proporción 16:9. Se calcula en píxeles
      * para que quepa también en pantallas pequeñas y en tablets.
      */
     private fun setupVideoSize() {
-        val frame = findViewById<View>(R.id.videoFrame)
         val metrics = resources.displayMetrics
         val byWidth = metrics.widthPixels * 9 / 16
         val byHeight = (metrics.heightPixels * 0.46f).toInt()
         val height = minOf(byWidth, byHeight).coerceAtLeast(dp(140))
-        frame.layoutParams = frame.layoutParams.apply { this.height = height }
+        normalVideoHeight = height
+        videoFrame.layoutParams = videoFrame.layoutParams.apply { this.height = height }
     }
 
     private fun dp(value: Int): Int =
@@ -415,6 +460,7 @@ class MainActivity : AppCompatActivity() {
         adapter.setActive(
             if (state.phase == PlaybackStatus.Phase.UNAVAILABLE) null else channel.id
         )
+        btnFullscreen.visibility = if (isFullscreen) View.GONE else View.VISIBLE
         txtNowTitle.text = channel.name
         btnAction.visibility = View.VISIBLE
         btnAction.text = when (state.phase) {
@@ -464,11 +510,72 @@ class MainActivity : AppCompatActivity() {
         render(PlaybackStatus.current)
     }
 
+    // ------------------------------------------------------- pantalla completa
+
+    /**
+     * Pasa el video a pantalla completa y gira a horizontal.
+     *
+     * No se recrea la actividad (el manifiesto ya declara orientation|screenSize):
+     * se ocultan cabecera, panel y lista, y el marco del video pasa a ocupar toda la
+     * pantalla. Las barras del sistema se ocultan para que el video tenga todo el alto.
+     */
+    private fun enterFullscreen() {
+        if (isFullscreen) return
+        if (PlaybackStatus.current.channelId == null) return
+
+        isFullscreen = true
+        if (videoFrame.layoutParams.height > 0) {
+            normalVideoHeight = videoFrame.layoutParams.height
+        }
+
+        requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_SENSOR_LANDSCAPE
+        WindowInsetsControllerCompat(window, window.decorView).apply {
+            hide(WindowInsetsCompat.Type.systemBars())
+            systemBarsBehavior =
+                WindowInsetsControllerCompat.BEHAVIOR_SHOW_TRANSIENT_BARS_BY_SWIPE
+        }
+
+        rootView.setPadding(0, 0, 0, 0)
+        header.visibility = View.GONE
+        infoPanel.visibility = View.GONE
+        channelList.visibility = View.GONE
+        videoFrame.layoutParams = LinearLayout.LayoutParams(
+            ViewGroup.LayoutParams.MATCH_PARENT,
+            ViewGroup.LayoutParams.MATCH_PARENT
+        )
+
+        btnFullscreen.visibility = View.GONE
+        btnExitFullscreen.visibility = View.VISIBLE
+    }
+
+    /** Vuelve a la pantalla normal en vertical y restaura el tamaño 16:9 del video. */
+    private fun exitFullscreen() {
+        if (!isFullscreen) return
+
+        isFullscreen = false
+        requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT
+        WindowInsetsControllerCompat(window, window.decorView)
+            .show(WindowInsetsCompat.Type.systemBars())
+
+        header.visibility = View.VISIBLE
+        infoPanel.visibility = View.VISIBLE
+        channelList.visibility = View.VISIBLE
+        videoFrame.layoutParams = LinearLayout.LayoutParams(
+            ViewGroup.LayoutParams.MATCH_PARENT,
+            if (normalVideoHeight > 0) normalVideoHeight else dp(180)
+        )
+
+        btnExitFullscreen.visibility = View.GONE
+        ViewCompat.requestApplyInsets(rootView)
+        render(PlaybackStatus.current)
+    }
+
     private fun renderIdle() {
         txtNowTitle.text = getString(R.string.idle_title)
         txtNowStatus.text = getString(R.string.idle_hint)
         txtNowStatus.setTextColor(ContextCompat.getColor(this, R.color.text_secondary))
         btnAction.visibility = View.GONE
+        btnFullscreen.visibility = View.GONE
 
         playerView.visibility = View.INVISIBLE
         playerView.keepScreenOn = false
