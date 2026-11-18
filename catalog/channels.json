@@ -1,7 +1,7 @@
 {
   "schema": 1,
-  "version": 1,
-  "updated": "2026-11-17T17:10:00.000Z",
+  "version": 2,
+  "updated": "2026-11-18T05:36:09.648Z",
   "channels": [
     {
       "id": "tvperu",
@@ -287,11 +287,11 @@
       "active": true,
       "candidates": [
         {
-          "url": "https://cablered.iptvperu.tv:1936/cablered/global.stream/playlist.m3u8",
+          "url": "https://live-evg7.tv360.bitel.com.pe/bitel/global_abr/playlist.m3u8",
           "type": "hls"
         },
         {
-          "url": "https://live-evg7.tv360.bitel.com.pe/bitel/global_abr/playlist.m3u8",
+          "url": "https://cablered.iptvperu.tv:1936/cablered/global.stream/playlist.m3u8",
           "type": "hls"
         },
         {
