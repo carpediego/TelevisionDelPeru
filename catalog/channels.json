@@ -1,7 +1,7 @@
 {
   "schema": 1,
-  "version": 3,
-  "updated": "2026-11-18T14:57:57.012Z",
+  "version": 4,
+  "updated": "2026-11-18T23:48:57.240Z",
   "channels": [
     {
       "id": "tvperu",
@@ -165,7 +165,7 @@
         "id": "canaln"
       },
       "health": {
-        "fails": 0,
+        "fails": 1,
         "lastOk": "2026-11-17T17:10:00.000Z"
       }
     },
@@ -450,8 +450,8 @@
         "id": "qosqo"
       },
       "health": {
-        "fails": 1,
-        "lastOk": "2026-11-17T17:10:00.000Z"
+        "fails": 0,
+        "lastOk": "2026-11-18T23:48:57.240Z"
       }
     },
     {
@@ -473,8 +473,8 @@
         "id": "tvnorte"
       },
       "health": {
-        "fails": 1,
-        "lastOk": "2026-11-17T17:10:00.000Z"
+        "fails": 0,
+        "lastOk": "2026-11-18T23:48:57.240Z"
       }
     },
     {
