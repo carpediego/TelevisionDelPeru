@@ -1,7 +1,7 @@
 {
   "schema": 1,
-  "version": 5,
-  "updated": "2026-11-19T05:34:02.496Z",
+  "version": 6,
+  "updated": "2026-11-21T05:14:16.618Z",
   "channels": [
     {
       "id": "tvperu",
@@ -287,15 +287,15 @@
       "active": true,
       "candidates": [
         {
+          "url": "http://190.93.224.42/GLOBAL/index.m3u8",
+          "type": "hls"
+        },
+        {
           "url": "https://live-evg7.tv360.bitel.com.pe/bitel/global_abr/playlist.m3u8",
           "type": "hls"
         },
         {
           "url": "https://cablered.iptvperu.tv:1936/cablered/global.stream/playlist.m3u8",
-          "type": "hls"
-        },
-        {
-          "url": "http://190.93.224.42/GLOBAL/index.m3u8",
           "type": "hls"
         }
       ],
@@ -519,7 +519,7 @@
         "id": "andes"
       },
       "health": {
-        "fails": 0,
+        "fails": 1,
         "lastOk": "2026-11-17T17:10:00.000Z"
       }
     }
