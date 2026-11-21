@@ -1,7 +1,7 @@
 {
   "schema": 1,
-  "version": 6,
-  "updated": "2026-11-21T05:14:16.618Z",
+  "version": 7,
+  "updated": "2026-11-21T14:02:14.088Z",
   "channels": [
     {
       "id": "tvperu",
@@ -519,8 +519,8 @@
         "id": "andes"
       },
       "health": {
-        "fails": 1,
-        "lastOk": "2026-11-17T17:10:00.000Z"
+        "fails": 0,
+        "lastOk": "2026-11-21T14:02:14.088Z"
       }
     }
   ]
