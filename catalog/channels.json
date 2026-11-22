@@ -1,7 +1,7 @@
 {
   "schema": 1,
-  "version": 7,
-  "updated": "2026-11-21T14:02:14.088Z",
+  "version": 8,
+  "updated": "2026-11-22T23:07:00.559Z",
   "channels": [
     {
       "id": "tvperu",
@@ -450,7 +450,7 @@
         "id": "qosqo"
       },
       "health": {
-        "fails": 0,
+        "fails": 1,
         "lastOk": "2026-11-18T23:48:57.240Z"
       }
     },
