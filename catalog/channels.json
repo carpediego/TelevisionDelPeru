@@ -1,7 +1,7 @@
 {
   "schema": 1,
-  "version": 12,
-  "updated": "2026-11-26T16:14:14.204Z",
+  "version": 13,
+  "updated": "2026-11-27T01:25:19.608Z",
   "channels": [
     {
       "id": "tvperu",
@@ -358,8 +358,8 @@
         "id": "latele"
       },
       "health": {
-        "fails": 1,
-        "lastOk": "2026-11-17T17:10:00.000Z"
+        "fails": 0,
+        "lastOk": "2026-11-27T01:25:19.607Z"
       }
     },
     {
@@ -496,7 +496,7 @@
         "id": "cajamarcatv"
       },
       "health": {
-        "fails": 1,
+        "fails": 2,
         "lastOk": "2026-11-17T17:10:00.000Z"
       }
     },
