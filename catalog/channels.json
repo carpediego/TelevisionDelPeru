@@ -1,7 +1,7 @@
 {
   "schema": 1,
-  "version": 15,
-  "updated": "2026-11-28T00:57:50.567Z",
+  "version": 16,
+  "updated": "2026-11-28T14:56:06.568Z",
   "channels": [
     {
       "id": "tvperu",
@@ -484,7 +484,7 @@
       "category": "regional",
       "color": "#F57C00",
       "priority": 19,
-      "active": true,
+      "active": false,
       "candidates": [
         {
           "url": "https://live-evg8.tv360.bitel.com.pe/bitel/cajamarcatvSRT/playlist.m3u8",
@@ -496,7 +496,7 @@
         "id": "cajamarcatv"
       },
       "health": {
-        "fails": 4,
+        "fails": 5,
         "lastOk": "2026-11-17T17:10:00.000Z"
       }
     },
